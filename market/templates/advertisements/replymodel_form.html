@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <section id="reply-form">
+        <div>
+            <!-- Form -->
+            <form action="" method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <div><input type="submit" value="Save"></div>
+                </form><!-- End Form -->
+            </div>
+        </section>
+
+{% endblock %}

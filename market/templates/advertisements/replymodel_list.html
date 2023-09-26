@@ -7,22 +7,23 @@
             <div>
                 <!-- Filtered Replies -->
                 <div>
-                    {% for replymodel in replymodel_list %}
+                    {% for reply in replymodel_list %}
                         <div>
-                            <div><span>{{ replymodel.user }}</span> <span>{{ replymodel.created_at|date:'d M Y' }}</span></div>
-                            <h2>{{ replymodel.title }}</h2>
-                            <p>{{ replymodel.text }}</p>
+                            <p>{{ reply.user }} &bullet; {{ reply.created_at|date:'d M Y' }}</p>
+                            <h2>{{ reply.title }}</h2>
+                            <p>{{ reply.text }}</p>
+                            <p><a href="{% url 'reply_accept' reply.pk %}">Accept</a> &bullet; 
+                            <a href="{% url 'reply_delete' reply.pk %}">Delete</a></p>
+                            <hr>
                             </div>
                     {% empty %}
-                        <div><h1>Ничего нет</h1></div>
+                        <h1>No replies</h1>
                     {% endfor %}
                     </div><!-- End Filtered Replies -->
                 
                 <!-- Sidebar -->
                 <div>
-                    <ul>
-                        <li>Параметры</li>
-                        </ul>
+                    <ul><li>Параметры</li></ul>
                     <div>
                         <!-- Form -->
                         <form action="" method="get">

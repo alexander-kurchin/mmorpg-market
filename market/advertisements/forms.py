@@ -1,6 +1,7 @@
-from django import forms
-from .models import AdvertModel
 from ckeditor_uploader.widgets import CKEditorUploadingWidget
+from django import forms
+
+from .models import AdvertModel, ReplyModel
 
 
 class AdvertForm(forms.ModelForm):
@@ -9,3 +10,9 @@ class AdvertForm(forms.ModelForm):
     class Meta:
         model = AdvertModel
         fields = ['category', 'title', 'content']
+
+
+class ReplyForm(forms.ModelForm):
+    class Meta:
+        model = ReplyModel
+        fields = ['text']

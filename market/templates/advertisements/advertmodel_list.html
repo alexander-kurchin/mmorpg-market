@@ -3,20 +3,24 @@
 {% block content %}
     <section id="adverts">
         <div>
+            <!-- Adverts -->
             <div>
-                <!-- Posts -->
-                <div>
-                    {% for advertmodel in advertmodel_list %}
-                        <div>
-                            <div>@{{ advertmodel.user }} &bullet; {{ advertmodel.created_at|date:'d M Y' }}</div>
-                            <a href="{% url 'advert_detail' advertmodel.pk %}"><h2>{{ advertmodel.title }}</h2></a>
-                            <p>{{ advertmodel.content|safe }}</p>
-                            </div>
-                    {% empty %}
-                        <div><h1>Ничего нет</h1></div>
-                    {% endfor %}
-                    </div><!-- End Posts -->
-                </div>
+                {% for advert in advertmodel_list %}
+                    <p>@{{ advert.user }} &bullet; {{ advert.created_at|date:'d M Y' }}</p>
+                    <h2><a href="{% url 'advert_detail' advert.pk %}">{{ advert.title }}</a></h2>
+                    <p>{{ advert.content|safe }}</p>
+                    <p>{% if request.user == advert.user %}
+                            <a href="{% url 'advert_edit' advert.pk %}">Edit</a> &bullet; 
+                            <a href="{% url 'advert_delete' advert.pk %}">Delete</a>
+                        {% else %}
+                            <a href="{% url 'reply_create' advert.pk %}">Reply</a>
+                        {% endif %}</p>
+                    <hr>
+                {% empty %}
+                    <h1>Ничего нет</h1>
+                {% endfor %}
+                </div><!-- End Adverts -->
+
             <!-- Paging -->
             {% if is_paginated %}
                 {% include "paginator.html" with page_obj=page_obj paginator=paginator%}

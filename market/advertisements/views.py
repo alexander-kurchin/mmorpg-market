@@ -1,11 +1,11 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse_lazy
 from django.views.generic import (CreateView, DeleteView, DetailView, FormView,
-                                  ListView, UpdateView)
+                                  ListView, UpdateView, View)
 
-from .forms import AdvertForm
+from .forms import AdvertForm, ReplyForm
 from .models import AdvertModel, ReplyModel, User
-from django.shortcuts import get_object_or_404
 
 
 class AdvertList(ListView):
@@ -45,3 +45,44 @@ class AdvertDelete(LoginRequiredMixin, DeleteView):
 class ReplyList(LoginRequiredMixin, ListView):
     model = ReplyModel
     paginate_by = 10
+
+    def get_queryset(self):
+        queryset = ReplyModel.objects.filter(advert__user=self.user)
+        return queryset
+
+    def get(self, request, *args, **kwargs):
+        self.user = get_object_or_404(User, username=request.user.username)
+        return super().get(request, *args, **kwargs)
+
+
+class ReplyCreate(LoginRequiredMixin, CreateView):
+    model = ReplyModel
+    form_class = ReplyForm
+    success_url = reverse_lazy('advert_list')
+
+    def post(self, request, *args, **kwargs):
+        self.user = get_object_or_404(User, username=request.user.username)
+        self.advert = get_object_or_404(AdvertModel, pk=kwargs['pk'])
+        return super().post(request, *args, **kwargs)
+
+    def form_valid(self, form):
+        reply = form.save(commit=False)
+        reply.user = self.user
+        reply.advert = self.advert
+        return super().form_valid(form)
+
+
+class ReplyDelete(LoginRequiredMixin, DeleteView):
+    model = ReplyModel
+    success_url = reverse_lazy('my')
+
+
+class ReplyAccept(View):
+    def get(self, request, *args, **kwargs):
+        reply = get_object_or_404(ReplyModel, pk=kwargs['pk'])
+        advert = reply.advert
+        reply.is_accepted = True
+        advert.has_accepted_reply = True
+        reply.save()
+        advert.save()
+        return redirect('my')

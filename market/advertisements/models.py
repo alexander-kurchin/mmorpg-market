@@ -1,8 +1,7 @@
+from ckeditor_uploader.fields import RichTextUploadingField
 from django.contrib.auth import get_user_model
 from django.db import models
 from django.urls import reverse
-from ckeditor_uploader.fields import RichTextUploadingField
-
 
 User = get_user_model()
 
@@ -54,6 +53,9 @@ class AdvertModel(models.Model):
     class Meta:
         ordering = ['-created_at', 'title']
 
+    def __str__(self):
+        return self.title
+
     def get_absolute_url(self):
         return reverse('advert_detail', args=[str(self.pk)])
 
@@ -67,11 +69,20 @@ class ReplyModel(models.Model):
     advert = models.ForeignKey(AdvertModel,
                                on_delete=models.CASCADE,
                                related_name='replies')
-    user = models.OneToOneField(User,
+    user = models.ForeignKey(User,
                                 on_delete=models.CASCADE)
     text = models.TextField()
-    is_accepted = models.BooleanField(default=False)
+    _is_accepted = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
+
+    @property
+    def is_accepted(self):
+        return self._is_accepted
+
+    @is_accepted.setter
+    def is_accepted(self, value):
+        self._is_accepted = bool(value)
+        self.save()
 
     class Meta:
         ordering = ['-created_at', 'user']

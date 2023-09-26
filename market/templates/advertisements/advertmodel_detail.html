@@ -3,10 +3,14 @@
 {% block content %}
     <section id="advert">
         <!-- ======= Advert ======= -->
-        <div>
-            <div>@{{ advertmodel.user }} &bullet; {{ advertmodel.created_at|date:'d M Y' }}</div>
-            <h1>{{ advertmodel.title }}</h1>
-            <p>{{ advertmodel.content|safe }}</p>
-            </div>
+        <p>@{{ advertmodel.user }} &bullet; {{ advertmodel.created_at|date:'d M Y' }}</p>
+        <h1>{{ advertmodel.title }}</h1>
+        <p>{{ advertmodel.content|safe }}</p>
+        <p>{% if request.user == advertmodel.user %}
+                <a href="{% url 'advert_edit' advertmodel.pk %}">Edit</a> &bullet; 
+                <a href="{% url 'advert_delete' advertmodel.pk %}">Delete</a>
+            {% else %}
+                <a href="{% url 'reply_create' advertmodel.pk %}">Reply</a>
+            {% endif %}</p>
         </section>
 {% endblock %}
