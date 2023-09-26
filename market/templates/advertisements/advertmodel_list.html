@@ -6,11 +6,11 @@
             <div>
                 <!-- Posts -->
                 <div>
-                    {% for obj in obj_list %}
+                    {% for advertmodel in advertmodel_list %}
                         <div>
-                            <div><span>{{ obj.user }}</span> <span>{{ obj.created_at|date:'d M Y' }}</span></div>
-                            <a href="{% url 'advert_detail' obj.pk %}"><h2>{{ obj.title }}</h2></a>
-                            <a href="{% url 'advert_detail' obj.pk %}"><h3>{{ obj.content }}</h3></a>
+                            <div><span>{{ advertmodel.user }}</span> <span>&bullet;</span> <span>{{ advertmodel.created_at|date:'d M Y' }}</span></div>
+                            <a href="{% url 'advert_detail' advertmodel.pk %}"><h2>{{ advertmodel.title }}</h2></a>
+                            <p>{{ advertmodel.content|safe }}</p>
                             </div>
                     {% empty %}
                         <div><h1>Ничего нет</h1></div>

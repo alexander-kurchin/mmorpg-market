@@ -4,9 +4,9 @@
     <section id="advert">
         <!-- ======= Advert ======= -->
         <div>
-            <div><span>{{ obj.user }}</span> <span>{{ obj.created_at|date:'d M Y' }}</span></div>
-            <h2>{{ obj.title }}</h2>
-            <p>{{ obj.content }}</p>
+            <div><span>@{{ advertmodel.user }}</span> <span>&bullet;</span> <span>{{ advertmodel.created_at|date:'d M Y' }}</span></div>
+            <h2>{{ advertmodel.title }}</h2>
+            <p>{{ advertmodel.content|safe }}</p>
             </div>
         </section>
 {% endblock %}

@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 
+{% load static %}
+
 {% block content %}
 
     <section id="advert-form">
@@ -7,7 +9,8 @@
             <!-- Form -->
             <form action="" method="post">
                 {% csrf_token %}
-                {{ form.as_div }}
+                {{ form.media }}
+                {{ form.as_p }}
                 <div><input type="submit" value="Save"></div>
                 </form><!-- End Form -->
             </div>

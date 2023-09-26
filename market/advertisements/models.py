@@ -1,6 +1,8 @@
 from django.contrib.auth import get_user_model
 from django.db import models
 from django.urls import reverse
+from ckeditor_uploader.fields import RichTextUploadingField
+
 
 User = get_user_model()
 
@@ -30,13 +32,13 @@ class AdvertModel(models.Model):
                   ('sm', 'Мастера заклинаний'),
                   ]
 
-    user = models.OneToOneField(User,
-                                on_delete=models.CASCADE)
+    user = models.ForeignKey(User,
+                             on_delete=models.CASCADE)
     category = models.CharField(choices=CATEGORIES,
                                 max_length=5,
                                 default='tank')
     title = models.CharField(max_length=255)
-    content = models.TextField()  # TODO: Необходимо подключить wysiwyg редактор
+    content = RichTextUploadingField()
     _has_accepted_reply = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
 

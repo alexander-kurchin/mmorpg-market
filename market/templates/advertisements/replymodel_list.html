@@ -7,11 +7,11 @@
             <div>
                 <!-- Filtered Replies -->
                 <div>
-                    {% for obj in obj_list %}
+                    {% for replymodel in replymodel_list %}
                         <div>
-                            <div><span>{{ obj.user }}</span> <span>{{ obj.created_at|date:'d M Y' }}</span></div>
-                            <h2>{{ obj.title }}</h2>
-                            <p>{{ obj.text }}</p>
+                            <div><span>{{ replymodel.user }}</span> <span>{{ replymodel.created_at|date:'d M Y' }}</span></div>
+                            <h2>{{ replymodel.title }}</h2>
+                            <p>{{ replymodel.text }}</p>
                             </div>
                     {% empty %}
                         <div><h1>Ничего нет</h1></div>
