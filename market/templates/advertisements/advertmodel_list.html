@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <section id="adverts">
+        <div>
+            <div>
+                <!-- Posts -->
+                <div>
+                    {% for obj in obj_list %}
+                        <div>
+                            <div><span>{{ obj.user }}</span> <span>{{ obj.created_at|date:'d M Y' }}</span></div>
+                            <a href="{% url 'advert_detail' obj.pk %}"><h2>{{ obj.title }}</h2></a>
+                            <a href="{% url 'advert_detail' obj.pk %}"><h3>{{ obj.content }}</h3></a>
+                            </div>
+                    {% empty %}
+                        <div><h1>Ничего нет</h1></div>
+                    {% endfor %}
+                    </div><!-- End Posts -->
+                </div>
+            <!-- Paging -->
+            {% if is_paginated %}
+                {% include "paginator.html" with page_obj=page_obj paginator=paginator%}
+            {% endif %}<!-- End Paging -->
+            </div>
+        </section>
+
+{% endblock %}

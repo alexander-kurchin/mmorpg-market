@@ -4,10 +4,6 @@ from . import views
 
 urlpatterns = [
     path('',
-         views.hello,
-         name='home'),
-
-    path('adverts/',
          views.AdvertList.as_view(),
          name='advert_list'),
 

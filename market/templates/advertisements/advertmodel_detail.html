@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <section id="advert">
+        <!-- ======= Advert ======= -->
+        <div>
+            <div><span>{{ obj.user }}</span> <span>{{ obj.created_at|date:'d M Y' }}</span></div>
+            <h2>{{ obj.title }}</h2>
+            <p>{{ obj.content }}</p>
+            </div>
+        </section>
+{% endblock %}

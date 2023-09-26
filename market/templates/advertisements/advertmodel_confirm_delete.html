@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <section id="advert-delete">
+        <div>
+            <!-- Form -->
+            <div>
+                <form action="" method="post">
+                    {% csrf_token %}
+	                <h3>Удаляем «{{ obj }}»?</h3>
+                    <div><button type="submit">Удалить</button></div>
+                    </form>
+                </div><!-- End Form -->
+            </div>
+        </section>
+
+{% endblock %}

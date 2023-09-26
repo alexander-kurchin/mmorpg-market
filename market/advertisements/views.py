@@ -38,7 +38,3 @@ class AdvertDelete(LoginRequiredMixin, DeleteView):
 class ReplyList(ListView):
     model = ReplyModel
     paginate_by = 10
-
-
-def hello(request):
-    return HttpResponse('Hello!')

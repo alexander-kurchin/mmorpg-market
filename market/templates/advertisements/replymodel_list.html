@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <section id="filter">
+        <div>
+            <div>
+                <!-- Filtered Replies -->
+                <div>
+                    {% for obj in obj_list %}
+                        <div>
+                            <div><span>{{ obj.user }}</span> <span>{{ obj.created_at|date:'d M Y' }}</span></div>
+                            <h2>{{ obj.title }}</h2>
+                            <p>{{ obj.text }}</p>
+                            </div>
+                    {% empty %}
+                        <div><h1>Ничего нет</h1></div>
+                    {% endfor %}
+                    </div><!-- End Filtered Replies -->
+                
+                <!-- Sidebar -->
+                <div>
+                    <ul>
+                        <li>Параметры</li>
+                        </ul>
+                    <div>
+                        <!-- Form -->
+                        <form action="" method="get">
+                            {{ filter.form.as_p }}
+                            <div><input type="submit" value="Filter"></div>
+                            </form><!-- End Form -->
+                        </div>
+                    </div><!-- End Sidebar -->
+
+            <!-- Paging -->
+            {% if is_paginated %}
+                {% include "paginator.html" with page_obj=page_obj paginator=paginator%}
+            {% endif %}<!-- End Paging -->
+
+            </div>
+        </section>
+
+{% endblock %}
