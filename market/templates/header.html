@@ -1,23 +1,42 @@
+{% load static %}
+
 <!-- ======= Header ======= -->
-<header id="header">
-  <div>
+<header id="header" style="margin:20px;">
 
-    <h1>MMORPG_MRKT</h1>
+  <table>
+    <tr>
+      <td><a href="{% url 'advert_list' %}"><img src={% static "img/logo.png" %} alt="" style="width:100px;height:100px;"></a></td>
+      <td><h1>MMORPG_MRKT</h1></td>
+      </tr>
+    </table>
 
-    <nav id="navbar">
-      <ul>
-        <li><a href="{% url 'advert_list' %}">All adverts</a></li>
-        <li><a href="{% url 'advert_create' %}">Add advert</a></li>
-        <li><a href="{% url 'my' %}">My adverts</a></li>
-        <li><a href="#"><span>You are {{ request.user }}</span></a>
-          <ul>
-            <li><a href="#">LogIn</a></li>
-            <li><a href="#">LogOut</a></li>
-            <li><a href="#">SignUp</a></li>
-            </ul>
-          </li>
-        </ul>
-      </nav>
-    <hr>
-    </div>
+  <nav id="navbar" style="margin-left:20px;">
+    {% if user.is_authenticated %}
+      <table>
+        <tr>
+          <td colspan="3">Hello, @{{ request.user }}! (<a href="{% url 'account_logout' %}">exit</a>)</td>
+          </tr>
+        <tr>
+          <td><a href="{% url 'advert_list' %}"><button>All adverts</button></a></td>
+          <td><a href="{% url 'advert_create' %}"><button>Add advert</button></a></td>
+          <td><a href="{% url 'my' %}"><button>My adverts</button></a></td>
+          </tr>
+        </table>
+    {% else %}
+      <table>
+        <tr>
+          <td>Hello, adventurer! Introduce yourself: </td>
+          <td><a href="{% url 'account_login' %}"><button>LogIn</button></a></td>
+          <td><a href="{% url 'account_signup' %}"><button>SignUp</button></a></td>
+          </tr>
+        </table>
+    {% endif %}
+
+    {% if user.is_authenticated %}
+    
+    {% endif %}
+    </nav>
+
+  <hr>
+
   </header><!-- End Header -->

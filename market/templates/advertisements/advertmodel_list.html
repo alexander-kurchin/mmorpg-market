@@ -8,7 +8,7 @@
                 <div>
                     {% for advertmodel in advertmodel_list %}
                         <div>
-                            <div><span>{{ advertmodel.user }}</span> <span>&bullet;</span> <span>{{ advertmodel.created_at|date:'d M Y' }}</span></div>
+                            <div>@{{ advertmodel.user }} &bullet; {{ advertmodel.created_at|date:'d M Y' }}</div>
                             <a href="{% url 'advert_detail' advertmodel.pk %}"><h2>{{ advertmodel.title }}</h2></a>
                             <p>{{ advertmodel.content|safe }}</p>
                             </div>

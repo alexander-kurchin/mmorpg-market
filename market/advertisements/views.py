@@ -25,7 +25,7 @@ class AdvertFormView(LoginRequiredMixin, FormView):
 class AdvertCreate(CreateView, AdvertFormView):
     def post(self, request, *args, **kwargs):
         self.user = get_object_or_404(User, username=request.user.username)
-        return super(AdvertCreate, self).post(request, *args, **kwargs)
+        return super().post(request, *args, **kwargs)
 
     def form_valid(self, form):
         advert = form.save(commit=False)
@@ -42,6 +42,6 @@ class AdvertDelete(LoginRequiredMixin, DeleteView):
     success_url = reverse_lazy('my')
 
 
-class ReplyList(ListView):
+class ReplyList(LoginRequiredMixin, ListView):
     model = ReplyModel
     paginate_by = 10

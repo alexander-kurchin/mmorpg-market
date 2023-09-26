@@ -4,8 +4,8 @@
     <section id="advert">
         <!-- ======= Advert ======= -->
         <div>
-            <div><span>@{{ advertmodel.user }}</span> <span>&bullet;</span> <span>{{ advertmodel.created_at|date:'d M Y' }}</span></div>
-            <h2>{{ advertmodel.title }}</h2>
+            <div>@{{ advertmodel.user }} &bullet; {{ advertmodel.created_at|date:'d M Y' }}</div>
+            <h1>{{ advertmodel.title }}</h1>
             <p>{{ advertmodel.content|safe }}</p>
             </div>
         </section>
