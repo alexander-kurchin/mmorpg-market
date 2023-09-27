@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <section id="reply-filter">
+        <!-- Form -->
+        <form action="" method="get">
+            {{ filter.form.as_p }}
+            <input type="submit" value="Filter">
+            </form><!-- End Form -->
+        <hr>
+        <!-- Filtered Replies -->
+        {% for reply in replymodel_list %}
+            <p>@{{ reply.user }} &bullet; {{ reply.created_at|date:'d M Y' }}</p>
+            <h2>{{ reply.title }}</h2>
+            <p>{{ reply.text }}</p>
+            {% if reply.is_accepted %}
+                <font color="green"><b>Accepted</b></font>
+            {% else %}
+                <p><a href="{% url 'reply_accept' reply.pk %}">Accept</a> &bullet; 
+                <a href="{% url 'reply_delete' reply.pk %}">Delete</a></p>
+            {% endif %}
+            <hr>
+        {% empty %}
+            <h1>No replies</h1>
+        {% endfor %}<!-- End Filtered Replies -->
+        </section>
+
+{% endblock %}

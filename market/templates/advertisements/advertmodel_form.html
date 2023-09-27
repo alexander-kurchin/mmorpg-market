@@ -5,15 +5,13 @@
 {% block content %}
 
     <section id="advert-form">
-        <div>
-            <!-- Form -->
-            <form action="" method="post">
-                {% csrf_token %}
-                {{ form.media }}
-                {{ form.as_p }}
-                <div><input type="submit" value="Save"></div>
-                </form><!-- End Form -->
-            </div>
+        <!-- Form -->
+        <form action="" method="post">
+            {% csrf_token %}
+            {{ form.media }}
+            {{ form.as_p }}
+            <input type="submit" value="Save">
+            </form><!-- End Form -->
         </section>
 
 {% endblock %}

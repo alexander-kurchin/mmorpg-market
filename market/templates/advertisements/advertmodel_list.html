@@ -2,30 +2,28 @@
 
 {% block content %}
     <section id="adverts">
+        <!-- Adverts -->
         <div>
-            <!-- Adverts -->
-            <div>
-                {% for advert in advertmodel_list %}
-                    <p>@{{ advert.user }} &bullet; {{ advert.created_at|date:'d M Y' }}</p>
-                    <h2><a href="{% url 'advert_detail' advert.pk %}">{{ advert.title }}</a></h2>
-                    <p>{{ advert.content|safe }}</p>
-                    <p>{% if request.user == advert.user %}
-                            <a href="{% url 'advert_edit' advert.pk %}">Edit</a> &bullet; 
-                            <a href="{% url 'advert_delete' advert.pk %}">Delete</a>
-                        {% else %}
-                            <a href="{% url 'reply_create' advert.pk %}">Reply</a>
-                        {% endif %}</p>
-                    <hr>
-                {% empty %}
-                    <h1>Ничего нет</h1>
-                {% endfor %}
-                </div><!-- End Adverts -->
+            {% for advert in advertmodel_list %}
+                <p>@{{ advert.user }} &bullet; {{ advert.created_at|date:'d M Y' }}</p>
+                <h2><a href="{% url 'advert_detail' advert.pk %}">{{ advert.title }}</a></h2>
+                <p>{{ advert.content|safe }}</p>
+                <p>{% if request.user == advert.user %}
+                        <a href="{% url 'advert_edit' advert.pk %}">Edit</a> &bullet; 
+                        <a href="{% url 'advert_delete' advert.pk %}">Delete</a>
+                    {% else %}
+                        <a href="{% url 'reply_create' advert.pk %}">Reply</a>
+                    {% endif %}</p>
+                <hr>
+            {% empty %}
+                <h1>Ничего нет</h1>
+            {% endfor %}
+            </div><!-- End Adverts -->
 
-            <!-- Paging -->
-            {% if is_paginated %}
-                {% include "paginator.html" with page_obj=page_obj paginator=paginator%}
-            {% endif %}<!-- End Paging -->
-            </div>
+        <!-- Paging -->
+        {% if is_paginated %}
+            {% include "paginator.html" with page_obj=page_obj paginator=paginator%}
+        {% endif %}<!-- End Paging -->
         </section>
 
 {% endblock %}

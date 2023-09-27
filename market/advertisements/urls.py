@@ -37,6 +37,6 @@ urlpatterns = [
          name='reply_delete'),
 
     path('my',
-         views.ReplyList.as_view(),
+         views.ReplyFilter.as_view(),
          name='my'),
 ]

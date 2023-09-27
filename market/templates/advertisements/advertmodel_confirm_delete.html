@@ -3,16 +3,12 @@
 {% block content %}
 
     <section id="advert-delete">
-        <div>
-            <!-- Form -->
-            <div>
-                <form action="" method="post">
-                    {% csrf_token %}
-	                <h3>Delete «{{ advertmodel }}»?</h3>
-                    <div><button type="submit">Yes</button></div>
-                    </form>
-                </div><!-- End Form -->
-            </div>
+        <!-- Form -->
+        <form action="" method="post">
+            {% csrf_token %}
+            <h3>Delete «{{ advertmodel }}»?</h3>
+            <button type="submit">Yes</button>
+            </form><!-- End Form -->
         </section>
 
 {% endblock %}
