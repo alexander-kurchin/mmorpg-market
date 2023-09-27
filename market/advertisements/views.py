@@ -7,7 +7,8 @@ from django_filters.views import FilterView
 
 from .filters import ReplyModelFilterSet
 from .forms import AdvertForm, ReplyForm
-from .models import AdvertModel, ReplyModel, User
+from .models import AdvertModel, ReplyModel
+from .signals import reply_is_accepted
 
 
 class AdvertList(ListView):
@@ -79,7 +80,7 @@ class ReplyDelete(LoginRequiredMixin, DeleteView):
     success_url = reverse_lazy('my')
 
 
-class ReplyAccept(View):
+class ReplyAccept(LoginRequiredMixin, View):
     def get(self, request, *args, **kwargs):
         reply = get_object_or_404(ReplyModel, pk=kwargs['pk'])
         advert = reply.advert
@@ -87,4 +88,5 @@ class ReplyAccept(View):
         advert.has_accepted_reply = True
         reply.save()
         advert.save()
+        reply_is_accepted.send_robust(sender=reply.pk, email=reply.user.email)
         return redirect('my')

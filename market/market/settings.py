@@ -35,7 +35,7 @@ INSTALLED_APPS = [
 
     'django_filters',
 
-    'advertisements',
+    'advertisements.apps.AdvertisementsConfig',
 ]
 
 MIDDLEWARE = [
